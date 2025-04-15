@@ -35,37 +35,31 @@ A Django REST Framework-based Task Manager API that enables:
 
 1. **Clone the Repository**
 ```bash
-git clone <repository-url>
-cd task-manager
+git clone https://github.com/TencerDe/task_api_tanuj_sharma_josh_talks.git
+cd task_manager
 ```
 
 2. **Create Virtual Environment**
-```bash
+
 # Windows
 python -m venv venv
 venv\Scripts\activate
 
-# Unix/MacOS
-python -m venv venv
-source venv/bin/activate
-```
-
 3. **Install Dependencies**
-```bash
+
 pip install django
 pip install djangorestframework
-```
 
 4. **Run Migrations**
-```bash
+
 python manage.py makemigrations
 python manage.py migrate
-```
+
 
 5. **Start Server**
-```bash
+
 python manage.py runserver
-```
+
 The API will be available at `http://127.0.0.1:12/`
 
 ## API Documentation
@@ -73,41 +67,40 @@ The API will be available at `http://127.0.0.1:12/`
 ### User Management
 
 #### 1. Create User
-```http
+http
 POST /api/users/
 Content-Type: application/json
 
 {
-    "name": "John Doe",
-    "email": "john@example.com",
+    "name": "Tanuj Sharma",
+    "email": "tanuj@example.com",
     "mobile": "1234567890"
 }
-```
+
 
 Response:
-```json
+json
 {
     "id": 1,
-    "name": "John Doe",
-    "email": "john@example.com",
+    "name": "Tanuj Sharma",
+    "email": "tanuj@example.com",
     "mobile": "1234567890"
 }
-```
 
 #### 2. List Users
-```http
+http
 GET /api/users/
-```
+
 
 #### 3. Get User Details
-```http
+http
 GET /api/users/{id}/
-```
+
 
 ### Task Management
 
 #### 1. Create Task with User Assignment
-```http
+http
 POST /api/tasks/
 Content-Type: application/json
 
@@ -118,10 +111,10 @@ Content-Type: application/json
     "status": "pending",
     "assigned_to": [1]
 }
-```
+
 
 Response:
-```json
+json
 {
     "id": 1,
     "name": "Test Task",
@@ -132,25 +125,25 @@ Response:
     "completed_at": null,
     "assigned_to": [1]
 }
-```
+
 
 #### 2. Assign Users to Task
-```http
+http
 POST /api/tasks/{task_id}/assign/
 Content-Type: application/json
 
 {
     "user_ids": [1, 2]
 }
-```
+
 
 #### 3. Get User's Tasks
-```http
+http
 GET /api/users/{user_id}/tasks/
-```
+
 
 Response:
-```json
+json
 [
     {
         "id": 1,
@@ -163,7 +156,7 @@ Response:
         "assigned_to": [1]
     }
 ]
-```
+
 
 ## Testing Guide
 
@@ -172,18 +165,18 @@ Response:
 #### Using cURL
 
 1. **Create User**
-```bash
+bash
 curl -X POST http://127.0.0.1:12/api/users/ \
      -H "Content-Type: application/json" \
      -d '{
-           "name": "John Doe",
-           "email": "john@example.com",
+           "name": "Tanuj Sharma",
+           "email": "tanuj@example.com",
            "mobile": "1234567890"
          }'
-```
+
 
 2. **Create Task with Assignment**
-```bash
+bash
 curl -X POST http://127.0.0.1:12/api/tasks/ \
      -H "Content-Type: application/json" \
      -d '{
@@ -193,7 +186,7 @@ curl -X POST http://127.0.0.1:12/api/tasks/ \
            "status": "pending",
            "assigned_to": [1]
          }'
-```
+
 
 #### Using Postman
 
@@ -212,25 +205,20 @@ curl -X POST http://127.0.0.1:12/api/tasks/ \
 ### Test Credentials
 
 #### Test User 1
-```json
+json
 {
-    "name": "John Doe",
+    "name": "Tanuj Sharma",
     "email": "john@example.com",
     "mobile": "1234567890"
 }
-```
+
 
 #### Test User 2
-```json
-{
-    "name": "Jane Smith",
-    "email": "jane@example.com",
-    "mobile": "9876543210"
-}
-```
+Change the 'name','email','mobile' for registering new user.
+
 
 #### Sample Task
-```json
+json
 {
     "name": "Test Task",
     "description": "This is a test task",
@@ -238,20 +226,20 @@ curl -X POST http://127.0.0.1:12/api/tasks/ \
     "status": "pending",
     "assigned_to": [1]
 }
-```
+
 
 ## Data Models
 
 ### User Model
-```python
+python
 class User(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     mobile = models.CharField(max_length=10, unique=True)
-```
+
 
 ### Task Model
-```python
+python
 class Task(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -260,7 +248,7 @@ class Task(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     completed_at = models.DateTimeField(null=True, blank=True)
     assigned_to = models.ManyToManyField(User, related_name='tasks')
-```
+
 
 ## Troubleshooting
 
@@ -284,19 +272,19 @@ class Task(models.Model):
 ### Error Responses
 
 1. **User Not Found (404)**
-```json
+json
 {
     "detail": "Not found."
 }
-```
+
 
 2. **Validation Error (400)**
-```json
+json
 {
     "email": ["Enter a valid email address."],
     "mobile": ["Ensure this field has exactly 10 digits."]
 }
-```
+
 
 ## API Status Codes
 
@@ -326,4 +314,4 @@ For issues or questions:
 
 ---
 
-This project is part of a coding assignment demonstrating REST API development, database relationships, and Django REST Framework implementation.
+**All rights reserved to Tanuj Sharma aka TencerDe. this project is made for Josh Talks backend engineer profile.**
