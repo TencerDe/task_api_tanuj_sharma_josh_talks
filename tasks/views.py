@@ -48,7 +48,7 @@ def get_user_tasks(request, user_id):
     Retrieve all tasks assigned to a specific user.
     Returns 404 if user doesn't exist.
     """
-    user = get_object_or_404(User, pk=user_id)
+    user = get_object_or_404(User, pk=user_id);
     tasks = user.tasks.all()
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
@@ -82,7 +82,7 @@ def assign_task(request):
 
     return Response({"message": "Users assigned successfully"})
 
-# UserViewSet handles CRUD operations for users
+# Crud Operations handle karega
 class UserViewSet(viewsets.ModelViewSet):
     """
     ViewSet for handling user operations.
@@ -93,7 +93,7 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
 # Signup View
-@permission_classes([AllowAny])
+@permission_classes([AllowAny]) #permisiion class se koi bhi api endpoint ko access karta hai, regardless of the authentication. Authentication mein dikkat aa rhi thi issiliye use kiya
 @api_view(['POST'])
 def signup(request):
     try:
@@ -120,11 +120,11 @@ def signup(request):
         user = User.objects.create(
             name=data['name'],
             email=data['email'],
-            password=data['password']  # Will be hashed in model save method
+            password=data['password']  # Has value mein save karenge user model mein
         )
 
         # Generate session token
-        session_token = uuid.uuid4()
+        session_token = uuid.uuid4() #Kissi bhi value ko uniquely idenatify karta hai, for example inhe ek id ya key id dekeh. jaise har user ki apni ek id hogi, and har ek login ka apna khud ke sessioon token hoga
         user.session_token = session_token
         user.save()
 
